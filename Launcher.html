@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Edge App Launcher</title>
+<style>
+:root{--bg:#f5f6f8;--panel:rgba(255,255,255,.96);--card:#fff;--text:#18202a;--muted:#667085;--border:#e0e4e9;--accent:#0f6cbd;--danger:#c42b1c;--shadow:0 8px 24px rgba(0,0,0,.07);--radius:16px}
+@media(prefers-color-scheme:dark){:root{--bg:#111315;--panel:rgba(31,33,36,.98);--card:#1f2124;--text:#f3f4f6;--muted:#a7adb7;--border:#36393d;--accent:#479ef5;--danger:#ff6b5f;--shadow:0 10px 30px rgba(0,0,0,.25)}}
+[data-theme=light]{--bg:#f5f6f8;--panel:rgba(255,255,255,.96);--card:#fff;--text:#18202a;--muted:#667085;--border:#e0e4e9;--accent:#0f6cbd;--danger:#c42b1c;--shadow:0 8px 24px rgba(0,0,0,.07)}
+[data-theme=dark]{--bg:#111315;--panel:rgba(31,33,36,.98);--card:#1f2124;--text:#f3f4f6;--muted:#a7adb7;--border:#36393d;--accent:#479ef5;--danger:#ff6b5f;--shadow:0 10px 30px rgba(0,0,0,.25)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,rgba(15,108,189,.08),transparent 30%),var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}.shell{max-width:1280px;margin:auto;padding:32px 24px}header{display:flex;align-items:center;gap:18px;margin-bottom:28px}.brand{flex:1}.brand h1{margin:0;font-size:28px}.brand p{margin:5px 0 0;color:var(--muted)}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:10px}.btn:hover{border-color:var(--accent)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.danger{color:var(--danger)}.search{width:100%;padding:13px 16px;margin-bottom:20px;border-radius:13px;border:1px solid var(--border);background:var(--card);color:var(--text);outline:none}.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(15,108,189,.12)}.grid,.folder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px}.section-title{grid-column:1/-1;color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:8px}.app-card,.folder-card{position:relative;min-height:170px;border:1px solid var(--border);border-radius:var(--radius);background:var(--card);padding:20px 16px;text-align:center;box-shadow:var(--shadow);transition:transform .15s,border-color .15s;user-select:none}.app-card:hover,.folder-card:hover{transform:translateY(-3px);border-color:var(--accent)}.icon{width:64px;height:64px;border-radius:15px;margin:3px auto 15px;display:grid;place-items:center;color:#fff;font-size:29px;font-weight:600;overflow:hidden}.icon img{width:100%;height:100%;object-fit:cover}.app-name,.folder-name{font-weight:650;word-break:break-word}.app-category,.folder-count{color:var(--muted);font-size:12px;margin-top:5px}.edit-card{position:absolute;right:8px;top:8px;border:0;background:transparent;color:var(--muted);border-radius:8px;padding:5px 8px;opacity:0}.app-card:hover .edit-card{opacity:1}.folder-icon{position:relative;width:72px;height:56px;margin:10px auto 20px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:28px}.folder-icon:before{content:"";position:absolute;width:31px;height:10px;left:7px;top:-7px;border-radius:7px 7px 0 0;background:inherit}.empty{grid-column:1/-1;padding:70px 20px;text-align:center;color:var(--muted)}dialog{width:min(560px,calc(100% - 30px));border:1px solid var(--border);border-radius:18px;background:var(--panel);color:var(--text);padding:0;box-shadow:0 30px 80px rgba(0,0,0,.3)}dialog.folder-dialog{width:min(920px,calc(100% - 30px));max-height:calc(100vh - 40px)}dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}.dialog-head{padding:20px 22px;border-bottom:1px solid var(--border);font-weight:650;font-size:19px;display:flex;align-items:center;gap:10px}.dialog-head span{flex:1}.dialog-body{padding:22px}.folder-dialog .dialog-body{max-height:calc(100vh - 115px);overflow:auto}.field{margin-bottom:16px}label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}input{width:100%;padding:11px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text)}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dialog-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:22px}.settings-list{display:grid;gap:12px}.setting-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px}.note{color:var(--muted);font-size:12px;line-height:1.5;margin-top:20px}@media(max-width:600px){.shell{padding:20px 14px}header{align-items:flex-start}.grid,.folder-grid{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}.brand p{display:none}}
+.category-options{display:flex;flex-wrap:wrap;gap:8px;max-height:104px;overflow-y:auto;margin:0 0 10px;padding:2px}.category-option{border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--muted);padding:7px 12px;font-size:12px;transition:background .15s,border-color .15s,color .15s}.category-option:hover{border-color:var(--accent);color:var(--text)}.category-option.active{background:rgba(15,108,189,.12);border-color:var(--accent);color:var(--accent);font-weight:650}[data-theme=dark] .category-option.active{background:rgba(71,158,245,.16)}\n
+.folder-card .edit-card{z-index:1}.folder-card:hover .edit-card{opacity:1}.folder-icon img{position:relative;width:100%;height:100%;object-fit:cover;border-radius:inherit}\n
+.folder-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:0 0 16px;color:var(--muted);font-size:13px}.folder-breadcrumb button{border:0;background:transparent;color:var(--accent);padding:4px 2px}.folder-breadcrumb button:hover{text-decoration:underline}.folder-breadcrumb .separator{color:var(--muted)}\n</style>
+</head>
+<body><div class="shell">
+<header><div class="brand"><h1>Microsoft APP Manager</h1><p>Launcher</p></div><div class="toolbar"><button class="btn" id="themeBtn" type="button">◐</button><button class="btn" id="settingsBtn" type="button">⚙ Impostazioni</button><button class="btn primary" id="addBtn" type="button">＋ Aggiungi app</button></div></header>
+<input id="search" class="search" type="search" placeholder="Cerca un'app..." autocomplete="off">
+<main id="grid" class="grid"></main></div>
+<dialog id="editDialog"><form id="appForm"><div class="dialog-head"><span id="dialogTitle">Aggiungi app</span></div><div class="dialog-body"><input type="hidden" id="appId"><div class="field"><label for="name">Nome</label><input id="name" required placeholder="es. Grafana"></div><div class="field"><label for="url">URL</label><input id="url" required type="url" placeholder="https://..."></div><div class="field"><label for="category">Categoria</label><div id="categoryOptions" class="category-options" aria-label="Categorie esistenti"></div><input id="category" placeholder="Oppure scrivi una nuova categoria" autocomplete="off"></div><div class="row"><div class="field"><label for="color">Colore</label><input id="color" type="color" value="#0f6cbd"></div><div class="field"><label for="icon">Icona</label><input id="icon" placeholder="Emoji oppure URL immagine"></div></div><div class="field window-option"><label><input id="openInNewWindow" type="checkbox"> Apri in nuova finestra</label></div><div class="dialog-actions"><button type="button" class="btn danger" id="deleteBtn">Elimina</button><button type="button" class="btn" id="duplicateBtn" hidden>Duplica</button><button type="button" class="btn" id="cancelBtn">Annulla</button><button type="submit" class="btn primary">Salva</button></div></div></form></dialog>
+<dialog id="folderEditDialog"><form id="folderForm"><div class="dialog-head"><span id="folderEditTitle">Modifica cartella</span></div><div class="dialog-body"><input type="hidden" id="folderEditName"><div class="row"><div class="field"><label for="folderColor">Colore</label><input id="folderColor" type="color" value="#0f6cbd"></div><div class="field"><label for="folderIcon">Icona</label><input id="folderIcon" placeholder="Emoji oppure URL immagine"></div></div><div class="dialog-actions"><button type="button" class="btn danger" id="folderDeleteBtn" hidden>Elimina cartella</button><button type="button" class="btn" id="folderEditCancel">Annulla</button><button type="submit" class="btn primary">Salva</button></div></div></form></dialog>
+<dialog id="folderDialog" class="folder-dialog"><div class="dialog-head"><span id="folderTitle">Cartella</span><button class="btn" id="folderAddApp" type="button">＋ Aggiungi app</button><button class="btn" id="folderClose" type="button">×</button></div><div class="dialog-body"><nav id="folderBreadcrumb" class="folder-breadcrumb" aria-label="Percorso cartella"></nav><div id="folderGrid" class="folder-grid"></div></div></dialog>
+<dialog id="settingsDialog"><div class="dialog-head"><span>Impostazioni launcher</span></div><div class="dialog-body"><div class="settings-list"><div class="setting-row"><span>Esporta configurazione</span><button class="btn" id="exportBtn" type="button">Esporta JSON</button></div><div class="setting-row"><span>Importa configurazione</span><button class="btn" id="importBtn" type="button">Importa JSON</button></div><div class="setting-row"><span>Ripristina configurazione</span><button class="btn danger" id="resetBtn" type="button">Ripristina</button></div></div><input type="file" id="importFile" accept="application/json" hidden><div class="note">Standalone compare nella home; le altre categorie diventano cartelle. Crea cartelle annidate con «Nuova cartella» e trascina app o cartelle per spostarle; trascina ai bordi di una cartella per riordinare e al centro per annidare. Ogni app si apre in una nuova scheda.</div><div class="dialog-actions"><button class="btn primary" id="settingsClose" type="button">Chiudi</button></div></div></dialog>
+<script>(()=>{"use strict";
+const STORAGE_KEY="edge-app-launcher-v2",LEGACY_STORAGE_KEY="edge-app-launcher-v1",FOLDER_STORAGE_KEY="edge-app-launcher-folders-v1",THEME_KEY="edge-app-launcher-theme";
+const defaults=[{id:crypto.randomUUID(),name:"Microsoft 365",url:"https://www.microsoft365.com/",category:"Microsoft 365",icon:"M",color:"#d83b01"},{id:crypto.randomUUID(),name:"Azure Portal",url:"https://portal.azure.com/",category:"Standalone",icon:"☁",color:"#0078d4"},{id:crypto.randomUUID(),name:"Grafana",url:"https://grafana.com/",category:"Monitoring",icon:"G",color:"#f46800"}];
+const $=id=>document.getElementById(id);
+const grid=$("grid"),search=$("search"),editDialog=$("editDialog"),folderEditDialog=$("folderEditDialog"),folderForm=$("folderForm"),folderDialog=$("folderDialog"),settingsDialog=$("settingsDialog"),form=$("appForm");
+let apps=[],folders=[],openedFolder=null,dragging=null;
+function esc(s){return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function color(v){return /^#[0-9a-f]{6}$/i.test(v||"")?v:"#0f6cbd"}
+function image(v=""){return /^(https?:\/\/|data:image\/)/i.test(v)}
+function standalone(a){return !a.folderId||!folders.some(f=>f.id===a.folderId)}
+function folderPath(id,seen=new Set()){const f=folders.find(x=>x.id===id);if(!f)return"";if(seen.has(id))return f.name;seen.add(id);return f.parentId?`${folderPath(f.parentId,seen)}/${f.name}`:f.name}
+function normalizeFolderParents(){
+ const ids=new Set(folders.map(f=>f.id));folders.forEach(f=>{if(!ids.has(f.parentId)||f.parentId===f.id)f.parentId=null});
+ folders.forEach(f=>{const seen=new Set([f.id]);let parent=folders.find(x=>x.id===f.parentId);while(parent){if(seen.has(parent.id)){f.parentId=null;break}seen.add(parent.id);parent=folders.find(x=>x.id===parent.parentId)}});
+}
+function cat(a){return standalone(a)?"Standalone":folderPath(a.folderId)||String(a.category||"Altro").trim()||"Altro"}
+function folderApps(id){return apps.filter(a=>a.folderId===id)}
+function folderChildren(id){return folders.filter(f=>f.parentId===id)}
+function sortOrder(items){return items.sort((a,b)=>(Number.isFinite(a.order)?a.order:0)-(Number.isFinite(b.order)?b.order:0))}
+function makeFolder(name,parentId=null,style={}){const folder={id:crypto.randomUUID(),name,parentId,icon:String(style.icon||""),color:color(style.color),order:folders.filter(f=>f.parentId===parentId).length};folders.push(folder);return folder}
+function ensureFolderPath(path){let parentId=null,current="";let result=null;for(const part of path.split("/").map(s=>s.trim()).filter(Boolean)){current=current?`${current}/${part}`:part;result=folders.find(f=>f.parentId===parentId&&f.name.toLocaleLowerCase()===part.toLocaleLowerCase());if(!result)result=makeFolder(part,parentId);parentId=result.id}return result}
+function migrate(){
+ let storedApps=null,storedFolders=null;
+ try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY));if(Array.isArray(value))storedApps=value;else{const legacy=JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY));if(Array.isArray(legacy))storedApps=legacy}}catch{}
+ try{storedFolders=JSON.parse(localStorage.getItem(FOLDER_STORAGE_KEY))}catch{}
+ apps=(storedApps||structuredClone(defaults)).map((a,index)=>({...a,id:a.id||crypto.randomUUID(),order:Number.isFinite(a.order)?a.order:index,folderId:typeof a.folderId==="string"?a.folderId:null}));
+ if(Array.isArray(storedFolders)){
+  folders=storedFolders.filter(f=>f&&typeof f.name==="string").map((f,index)=>({id:String(f.id||crypto.randomUUID()),name:f.name,parentId:typeof f.parentId==="string"?f.parentId:null,icon:String(f.icon||""),color:color(f.color),order:Number.isFinite(f.order)?f.order:index}));
+ }else{
+  folders=[];
+  const legacyStyles=storedFolders&&typeof storedFolders==="object"?storedFolders:{};
+  [...new Set(apps.filter(a=>String(a.category||"").toLocaleLowerCase()!=="standalone").map(a=>String(a.category||"Altro").trim()||"Altro"))].forEach(name=>makeFolder(name,null,legacyStyles[name]||{}));
+ }
+ normalizeFolderParents();
+ apps.forEach(a=>{if(!folders.some(f=>f.id===a.folderId)){const name=String(a.category||"").trim();if(name&&name.toLocaleLowerCase()!=="standalone")a.folderId=ensureFolderPath(name).id;else a.folderId=null}a.category=standalone(a)?"Standalone":folders.find(f=>f.id===a.folderId).name});
+ save();
+}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(apps));localStorage.setItem(FOLDER_STORAGE_KEY,JSON.stringify(folders))}
+function match(a){const q=search.value.trim().toLocaleLowerCase();return !q||a.name.toLocaleLowerCase().includes(q)||cat(a).toLocaleLowerCase().includes(q)}
+function launch(a){try{const url=new URL(a.url);if(url.protocol!=="http:"&&url.protocol!=="https:"){alert("Inserisci un URL HTTP o HTTPS.");return}window.open(url.href,"_blank",a.openInNewWindow?"noopener,noreferrer,popup":"noopener,noreferrer")}catch{alert("Il collegamento configurato non è valido.")}}
+function moveApp(id,parentId){const a=apps.find(x=>x.id===id);if(!a)return;a.folderId=parentId;a.category=parentId?folders.find(f=>f.id===parentId).name:"Standalone";a.order=parentId?folderApps(parentId).filter(x=>x.id!==id).length:apps.filter(x=>!x.folderId&&x.id!==id).length;save();render()}
+function isDescendant(candidateId,ancestorId){let current=folders.find(f=>f.id===candidateId);while(current){if(current.id===ancestorId)return true;current=folders.find(f=>f.id===current.parentId)}return false}
+function moveFolder(id,parentId){const f=folders.find(x=>x.id===id);if(!f||id===parentId||parentId&&isDescendant(parentId,id))return;f.parentId=parentId;f.order=folders.filter(x=>x.parentId===parentId&&x.id!==id).length;save();render()}
+function deleteFolder(id){
+ const folder=folders.find(f=>f.id===id);if(!folder)return;
+ const descendants=folders.filter(f=>f.id===id||isDescendant(f.id,id)),ids=new Set(descendants.map(f=>f.id)),appCount=apps.filter(a=>ids.has(a.folderId)).length,childCount=descendants.length-1;
+ const hasContent=appCount>0||childCount>0,message=hasContent?`La cartella "${folder.name}" non è vuota: contiene ${appCount} app e ${childCount} sottocartelle. Eliminando la cartella verrà eliminato anche tutto il contenuto. Vuoi continuare?`:`Eliminare la cartella "${folder.name}"?`;
+ if(!confirm(message))return;
+ const deletedCurrent=openedFolder&&ids.has(openedFolder);
+ folders=folders.filter(f=>!ids.has(f.id));apps=apps.filter(a=>!ids.has(a.folderId));save();folderEditDialog.close();
+ if(deletedCurrent)folderDialog.close();else render();
+}
+function reorder(parentId,sourceType,sourceId,targetType,targetId,after){
+ const root=parentId===null,items=root?(sourceType==="app"?apps.filter(a=>!a.folderId):folders.filter(f=>!f.parentId)):[...apps.filter(a=>a.folderId===parentId),...folders.filter(f=>f.parentId===parentId)];
+ const source=items.find(x=>x.id===sourceId),target=items.find(x=>x.id===targetId);if(!source||!target||source===target)return;
+ items.splice(items.indexOf(source),1);let index=items.indexOf(target)+(after?1:0);items.splice(index,0,source);items.forEach((item,i)=>item.order=i);save();render();
+}
+function dragData(ev){try{return JSON.parse(ev.dataTransfer.getData("text/plain"))}catch{return dragging}}
+function configureDrag(el,type,id,parentId,order){
+ el.draggable=true;
+ el.addEventListener("dragstart",ev=>{dragging={type,id,parentId,order,element:el};ev.dataTransfer.effectAllowed="move";ev.dataTransfer.setData("text/plain",JSON.stringify({type,id,parentId,order}));el.classList.add("dragging")});
+ el.addEventListener("dragend",()=>{dragging=null;document.querySelectorAll(".dragging,.drop-target").forEach(x=>x.classList.remove("dragging","drop-target"))});
+ el.addEventListener("dragover",ev=>{ev.preventDefault();ev.dataTransfer.dropEffect="move";el.classList.add("drop-target")});
+ el.addEventListener("dragleave",ev=>{if(!el.contains(ev.relatedTarget))el.classList.remove("drop-target")});
+ el.addEventListener("drop",ev=>{ev.preventDefault();ev.stopPropagation();el.classList.remove("drop-target");const data=dragData(ev);if(!data||data.id===id&&data.type===type)return;
+  const rect=el.getBoundingClientRect(),sourceRect=dragging?.element?.getBoundingClientRect(),sameRow=sourceRect&&Math.abs(sourceRect.top-rect.top)<rect.height*.6,position=sameRow?(ev.clientX-rect.left)/rect.width:(ev.clientY-rect.top)/rect.height,targetItem=type==="app"?apps.find(a=>a.id===id):folders.find(f=>f.id===id),after=position>.6?true:position<.4?false:data.order<(targetItem?.order??0);
+  if(type==="folder"){
+   if(data.type==="app"){if(data.parentId===id)reorder(id,"app",data.id,"folder",id,after);else moveApp(data.id,id);return}
+   const source=folders.find(f=>f.id===data.id);if(!source||isDescendant(id,source.id))return;
+   if(source.parentId===parentId&&position>.35&&position<.65)moveFolder(source.id,id);else if(source.parentId===parentId)reorder(parentId,"folder",source.id,"folder",id,after);else moveFolder(source.id,id);
+  }else if(data.type==="app"){
+   if(data.parentId===parentId)reorder(parentId,"app",data.id,"app",id,after);else moveApp(data.id,parentId);
+  }else{
+   const source=folders.find(f=>f.id===data.id);if(source&&source.parentId===parentId)reorder(parentId,"folder",source.id,"app",id,after);else if(source)moveFolder(source.id,parentId);
+  }
+ });
+}
+function appCard(a,parentId){
+ const e=document.createElement("article");e.className="app-card";const icon=image(a.icon)?`<img src="${esc(a.icon)}" alt="">`:esc(a.icon||a.name[0]?.toLocaleUpperCase()||"?");
+ const category=cat(a),showCategory=parentId!==null||category.toLocaleLowerCase()!=="standalone";
+ e.innerHTML=`<button type="button" class="edit-card" title="Modifica" aria-label="Modifica ${esc(a.name)}">•••</button><div class="icon" style="background:${color(a.color)}">${icon}</div><div class="app-name">${esc(a.name)}</div>${showCategory?`<div class="app-category">${esc(category)}</div>`:""}`;
+ configureDrag(e,"app",a.id,parentId,a.order);
+ e.addEventListener("click",ev=>{if(ev.target.closest(".edit-card"))editApp(a.id);else launch(a)});return e;
+}
+function folderCard(folder){
+ const e=document.createElement("article");e.className="folder-card";const icon=image(folder.icon)?`<img src="${esc(folder.icon)}" alt="">`:esc(folder.icon||"▦"),count=folderApps(folder.id).length+folderChildren(folder.id).length;
+ e.innerHTML=`<button type="button" class="edit-card" title="Modifica cartella" aria-label="Modifica cartella ${esc(folder.name)}">•••</button><div class="folder-icon" style="background:${color(folder.color)}">${icon}</div><div class="folder-name">${esc(folder.name)}</div><div class="folder-count">${count} elementi</div>`;
+ configureDrag(e,"folder",folder.id,folder.parentId,folder.order);
+ e.addEventListener("click",ev=>{if(ev.target.closest(".edit-card"))editFolder(folder.id);else openFolder(folder.id)});return e;
+}
+function renderItems(box,parentId,items){
+ box.innerHTML="";
+ if(!items.length){box.innerHTML='<div class="empty">Questa cartella è vuota. Trascina qui app o cartelle.</div>';return}
+ sortOrder(items).forEach(item=>box.appendChild(item.type==="folder"?folderCard(item.value):appCard(item.value,parentId)));
+}
+function render(){
+ grid.innerHTML="";
+ const rootApps=sortOrder(apps.filter(a=>!a.folderId&&match(a))).map(value=>({type:"app",value}));
+ const rootFolders=sortOrder(folders.filter(f=>!f.parentId&&(!search.value.trim()||folderPath(f.id).toLocaleLowerCase().includes(search.value.trim().toLocaleLowerCase())||folders.some(child=>child.id!==f.id&&isDescendant(child.id,f.id)&&folderPath(child.id).toLocaleLowerCase().includes(search.value.trim().toLocaleLowerCase()))||apps.some(a=>a.folderId&&isDescendant(a.folderId,f.id)&&match(a))))).map(value=>({type:"folder",value}));
+ if(rootApps.length){const h=document.createElement("div");h.className="section-title";h.textContent="App";grid.appendChild(h);rootApps.forEach(x=>grid.appendChild(appCard(x.value,null)))}
+ if(rootFolders.length){const h=document.createElement("div");h.className="section-title";h.textContent="Cartelle";grid.appendChild(h);rootFolders.forEach(x=>grid.appendChild(folderCard(x.value)))}
+ if(!rootApps.length&&!rootFolders.length)grid.innerHTML='<div class="empty">Nessuna app trovata.</div>';
+ if(folderDialog.open&&openedFolder)openFolder(openedFolder,true);
+}
+function openFolder(id,refresh=false){
+ const folder=folders.find(f=>f.id===id);if(!folder){if(folderDialog.open)folderDialog.close();return}
+ openedFolder=id;$("folderTitle").textContent=folder.name;
+ const ancestors=[];let current=folder;while(current){ancestors.unshift(current);current=folders.find(f=>f.id===current.parentId)}
+ const breadcrumb=$("folderBreadcrumb");breadcrumb.replaceChildren();const home=document.createElement("button");home.type="button";home.className="breadcrumb-home";home.textContent="Home";home.setAttribute("aria-label","Home; trascina qui per spostare una cartella nella home");home.addEventListener("dragover",ev=>{ev.preventDefault();ev.dataTransfer.dropEffect="move";home.classList.add("drop-target")});home.addEventListener("dragleave",()=>home.classList.remove("drop-target"));home.addEventListener("drop",ev=>{ev.preventDefault();ev.stopPropagation();home.classList.remove("drop-target");const data=dragData(ev);if(data?.type==="folder")moveFolder(data.id,null);else if(data?.type==="app")moveApp(data.id,null)});home.addEventListener("click",()=>folderDialog.close());breadcrumb.appendChild(home);ancestors.forEach((item,index)=>{const separator=document.createElement("span");separator.className="separator";separator.textContent="›";breadcrumb.appendChild(separator);if(index===ancestors.length-1){const currentLabel=document.createElement("span");currentLabel.textContent=item.name;currentLabel.setAttribute("aria-current","location");breadcrumb.appendChild(currentLabel)}else{const link=document.createElement("button");link.type="button";link.textContent=item.name;link.setAttribute("aria-label",`Vai alla cartella ${folderPath(item.id)}`);link.addEventListener("click",()=>openFolder(item.id,true));breadcrumb.appendChild(link)}})
+ const q=search.value.trim().toLocaleLowerCase(),items=[...folderApps(id).filter(match).map(value=>({type:"app",value,order:value.order})),...folderChildren(id).filter(f=>!q||folderPath(f.id).toLocaleLowerCase().includes(q)||apps.some(a=>a.folderId&&isDescendant(a.folderId,f.id)&&match(a))).map(value=>({type:"folder",value,order:value.order}))];
+ renderItems($("folderGrid"),id,items);
+ if(!folderDialog.open&&!refresh)folderDialog.showModal();
+}
+function freshApp(folderId=null){form.reset();$("appId").value="";$("color").value="#0f6cbd";$("category").value=folderId?folderPath(folderId):"Standalone";$("openInNewWindow").checked=false;renderCategoryOptions();$("dialogTitle").textContent="Aggiungi app";$("deleteBtn").hidden=true;$("duplicateBtn").hidden=true;editDialog.showModal()}
+function editApp(id){const a=apps.find(x=>x.id===id);if(!a)return;$("appId").value=a.id;$("name").value=a.name;$("url").value=a.url;$("category").value=cat(a);$("color").value=color(a.color);$("icon").value=a.icon||"";$("openInNewWindow").checked=a.openInNewWindow===true;renderCategoryOptions();$("dialogTitle").textContent="Modifica app";$("deleteBtn").hidden=false;$("duplicateBtn").hidden=false;editDialog.showModal()}
+function duplicateApp(){if(!$("appId").value)return;$("appId").value="";$("dialogTitle").textContent="Duplica app";$("deleteBtn").hidden=true;$("duplicateBtn").hidden=true}
+function renderCategoryOptions(){const list=$("categoryOptions");list.replaceChildren();const paths=[...new Set(folders.map(f=>folderPath(f.id)))].sort((a,b)=>a.localeCompare(b,"it"));paths.forEach(path=>{const option=document.createElement("button");option.type="button";option.className="category-option";option.textContent=path;option.addEventListener("click",()=>{$("category").value=path;syncCategoryOptions()});list.appendChild(option)});syncCategoryOptions()}
+function syncCategoryOptions(){const selected=$("category").value.trim().toLocaleLowerCase();$("categoryOptions").querySelectorAll(".category-option").forEach(option=>{const active=option.textContent.trim().toLocaleLowerCase()===selected;option.classList.toggle("active",active);option.setAttribute("aria-pressed",String(active))})}
+function setupFolderEditor(){
+ const style=document.createElement("style");style.textContent=".dragging{opacity:.45}.drop-target{outline:2px solid var(--accent);outline-offset:2px}#createFolderBtn{white-space:nowrap}.window-option label{display:flex;align-items:center;gap:8px}.window-option input{width:auto}";document.head.appendChild(style);
+ const title=$("folderEditTitle"),body=folderForm.querySelector(".dialog-body"),row=body.querySelector(".row"),nameField=document.createElement("div");
+ nameField.className="field";nameField.innerHTML='<label for="folderName">Nome cartella</label><input id="folderName" required maxlength="80" placeholder="es. Progetti">';
+ body.insertBefore(nameField,row);
+ const id=document.createElement("input");id.type="hidden";id.id="folderEditId";folderForm.appendChild(id);
+ const parent=document.createElement("input");parent.type="hidden";parent.id="folderEditParent";folderForm.appendChild(parent);
+ const newFolderButton=document.createElement("button");newFolderButton.type="button";newFolderButton.id="createFolderBtn";newFolderButton.className="btn";newFolderButton.textContent="＋ Cartella";$("addBtn").parentElement.insertBefore(newFolderButton,$("addBtn"));
+ newFolderButton.addEventListener("click",()=>editFolder(null,null));
+ const nestedButton=document.createElement("button");nestedButton.type="button";nestedButton.id="createNestedFolderBtn";nestedButton.className="btn";nestedButton.textContent="＋ Nuova cartella";$("folderTitle").parentElement.insertBefore(nestedButton,$("folderAddApp"));
+ nestedButton.addEventListener("click",()=>editFolder(null,openedFolder));
+ $("folderAddApp").addEventListener("click",()=>freshApp(openedFolder));
+ folderForm.addEventListener("submit",ev=>{
+  ev.preventDefault();const name=$("folderName").value.trim(),id=$("folderEditId").value||null,parentId=$("folderEditParent").value||null;
+  if(!name)return;
+  if(folders.some(f=>f.id!==id&&f.parentId===parentId&&f.name.toLocaleLowerCase()===name.toLocaleLowerCase())){alert("Esiste già una cartella con questo nome in questa posizione.");return}
+  let folder=id?folders.find(f=>f.id===id):null;if(!folder)folder=makeFolder(name,parentId,{icon:$("folderIcon").value.trim(),color:$("folderColor").value});else{folder.name=name;folder.icon=$("folderIcon").value.trim();folder.color=$("folderColor").value}
+  if(id)folder.order=folder.order||0;
+  save();folderEditDialog.close();render();
+ });
+ $("folderEditCancel").onclick=()=>folderEditDialog.close();
+ $("folderDeleteBtn").onclick=()=>deleteFolder($("folderEditId").value);
+ folderEditDialog.dataset.ready="true";folderEditDialog._title=title;
+}
+function editFolder(id,parentId=null){
+ const folder=id?folders.find(f=>f.id===id):null;
+ if(folder){$("folderEditId").value=folder.id;$("folderEditParent").value=folder.parentId||"";$("folderName").value=folder.name;$("folderIcon").value=folder.icon||"";$("folderColor").value=color(folder.color);$("folderEditTitle").textContent="Modifica cartella";$("folderDeleteBtn").hidden=false}
+ else{$("folderEditId").value="";$("folderEditParent").value=parentId||"";$("folderName").value="";$("folderIcon").value="";$("folderColor").value="#0f6cbd";$("folderEditTitle").textContent=parentId?"Nuova cartella annidata":"Nuova cartella";$("folderDeleteBtn").hidden=true}
+ folderEditDialog.showModal();$("folderName").focus();
+}
+function setContainerDrop(box,getParentId){
+ const emptyTarget=target=>target===box||target.classList.contains("section-title")||target.classList.contains("empty");
+ box.addEventListener("dragover",ev=>{if(emptyTarget(ev.target)){ev.preventDefault();ev.dataTransfer.dropEffect="move"}});
+ box.addEventListener("drop",ev=>{if(!emptyTarget(ev.target))return;ev.preventDefault();ev.stopPropagation();const data=dragData(ev),parentId=getParentId();if(!data)return;if(data.type==="app")moveApp(data.id,parentId);else if(parentId===null)moveFolder(data.id,null);else moveFolder(data.id,parentId)});
+}
+function importData(parsed){
+ const incoming=Array.isArray(parsed)?parsed:parsed.apps;if(!Array.isArray(incoming))throw new Error("Invalid apps");
+ const rawFolders=Array.isArray(parsed?.folders)?parsed.folders:[];
+ const legacyStyles=parsed?.folders&&!Array.isArray(parsed.folders)&&typeof parsed.folders==="object"?parsed.folders:{};
+ apps=[];folders=[];
+ rawFolders.filter(f=>f&&typeof f.name==="string").forEach((f,index)=>folders.push({id:String(f.id||crypto.randomUUID()),name:f.name,parentId:typeof f.parentId==="string"?f.parentId:null,icon:String(f.icon||""),color:color(f.color),order:Number.isFinite(f.order)?f.order:index}));
+ normalizeFolderParents();
+ incoming.filter(a=>a&&a.name&&a.url).forEach((a,index)=>{const app={id:String(a.id||crypto.randomUUID()),name:String(a.name),url:String(a.url),category:String(a.category||"Altro"),color:color(a.color),icon:String(a.icon||""),openInNewWindow:a.openInNewWindow===true,order:Number.isFinite(a.order)?a.order:index,folderId:typeof a.folderId==="string"&&folders.some(f=>f.id===a.folderId)?a.folderId:null};if(!app.folderId&&app.category.toLocaleLowerCase()!=="standalone")app.folderId=ensureFolderPath(app.category).id;app.category=app.folderId?folders.find(f=>f.id===app.folderId).name:"Standalone";apps.push(app)});
+ if(!rawFolders.length&&Object.keys(legacyStyles).length){folders.forEach(f=>{const style=legacyStyles[f.name];if(style){f.icon=String(style.icon||"");f.color=color(style.color)}})}
+ save();render();settingsDialog.close();
+}
+function theme(t){t==="system"?document.documentElement.removeAttribute("data-theme"):document.documentElement.dataset.theme=t;localStorage.setItem(THEME_KEY,t)}
+function init(){
+ migrate();setupFolderEditor();setContainerDrop(grid,()=>null);setContainerDrop($("folderGrid"),()=>openedFolder);
+ $("category").addEventListener("input",syncCategoryOptions);
+ form.addEventListener("submit",ev=>{ev.preventDefault();const id=$("appId").value,path=$("category").value.trim()||"Standalone",folderId=path.toLocaleLowerCase()==="standalone"?null:ensureFolderPath(path).id,r={id:id||crypto.randomUUID(),name:$("name").value.trim(),url:$("url").value.trim(),category:folderId?folders.find(f=>f.id===folderId).name:"Standalone",folderId,color:$("color").value,icon:$("icon").value.trim(),openInNewWindow:$("openInNewWindow").checked,order:0};const i=apps.findIndex(a=>a.id===id);if(i>=0){r.order=apps[i].folderId===folderId?apps[i].order:apps.filter(a=>a.folderId===folderId).length;apps[i]=r}else{apps.push(r);r.order=apps.filter(a=>a.folderId===folderId).length-1}save();editDialog.close();render()});
+ $("deleteBtn").onclick=()=>{const id=$("appId").value,a=apps.find(x=>x.id===id);if(a&&confirm(`Eliminare "${a.name}"?`)){apps=apps.filter(x=>x.id!==id);save();editDialog.close();render()}};
+ $("cancelBtn").onclick=()=>editDialog.close();$("duplicateBtn").onclick=duplicateApp;$("addBtn").onclick=()=>freshApp();search.oninput=render;
+ $("folderClose").onclick=()=>folderDialog.close();folderDialog.addEventListener("close",()=>{openedFolder=null});
+ folderDialog.addEventListener("click",ev=>{if(ev.target===folderDialog)folderDialog.close()});
+ $("settingsBtn").onclick=()=>settingsDialog.showModal();$("settingsClose").onclick=()=>settingsDialog.close();
+ $("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify({version:3,apps,folders},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="edge-app-launcher.json";a.click();URL.revokeObjectURL(url)};
+ $("importBtn").onclick=()=>$("importFile").click();$("importFile").onchange=async ev=>{try{importData(JSON.parse(await ev.target.files[0].text()))}catch{alert("JSON non valido")}ev.target.value=""};
+ $("resetBtn").onclick=()=>{if(confirm("Ripristinare la configurazione iniziale?")){apps=structuredClone(defaults).map((a,order)=>({...a,folderId:null,order}));folders=[];const first=ensureFolderPath("Microsoft 365"),monitoring=ensureFolderPath("Monitoring");apps[0].folderId=first.id;apps[0].category=first.name;apps[2].folderId=monitoring.id;apps[2].category=monitoring.name;save();render()}};
+ $("themeBtn").onclick=()=>{const current=localStorage.getItem(THEME_KEY)||"system";theme(current==="system"?"dark":current==="dark"?"light":"system")};theme(localStorage.getItem(THEME_KEY)||"system");
+ renderCategoryOptions();render();
+}
+init();
+})();
+</script></body></html>
