@@ -1,31 +1,33 @@
 # Your Clean Dashboard
 
-Launcher web statico con accesso Google e dati personali salvati nell'area privata dell'app (`appDataFolder`) su Drive. I dati salvati lì non compaiono tra i normali file di Drive. Il deploy usa Cloudflare Pages come hosting statico: nessun database o bucket R2.
+Launcher web statico con accesso Google e dati personali salvati nell'area privata dell'app (`appDataFolder`) su Drive. Il deploy usa Cloudflare Pages come hosting statico: nessun database o bucket R2.
 
 ## Sviluppo locale
 
-1. Installa Node.js e le dipendenze con `npm install`.
-2. Crea `.env.local` nella root del progetto e inserisci il Client ID OAuth web:
+1. Installa le dipendenze con `npm install`.
+2. Crea `.env.local` nella root del progetto:
 
    ```dotenv
    VITE_GOOGLE_CLIENT_ID=mioid.apps.googleusercontent.com
    ```
 
-3. Avvia `npm run dev` e apri l'URL mostrato da Vite (di solito `http://localhost:5173`). Vite carica `.env.local` all'avvio; riavvialo se cambi il Client ID.
+3. Avvia `npm run dev`. Vite legge `.env.local` all'avvio; riavvialo se modifichi il Client ID.
 
-## Google e deploy
+`.env.local` è escluso da Git. Il Client ID OAuth web è pubblico; non inserire un client secret nel frontend.
 
-- In Google Cloud abilita Google Drive API e configura la schermata di consenso OAuth.
-- Crea un OAuth Client ID di tipo applicazione web e autorizza l'origine locale `http://localhost:5173` e l'origine HTTPS scelta per la produzione.
-- L'app richiede `openid`, `email`, `profile` e `https://www.googleapis.com/auth/drive.appdata`. La configurazione viene conservata come `your-clean-dashboard.json` nell'area privata dell'app dell'utente (`appDataFolder`).
-- Il token di accesso OAuth, a breve durata, resta nella `sessionStorage` della scheda per ripristinare la sessione dopo un aggiornamento della pagina. Il comando Esci lo rimuove.
-- Su Cloudflare Pages imposta il comando di build `npm run build` e la directory di output `dist`. Aggiungi `VITE_GOOGLE_CLIENT_ID` nelle variabili di build del progetto Pages.
+## Google e Cloudflare Pages
 
-Il dominio citato finora è `apps.ycd-sofware.it`; controlla che la grafia sia quella desiderata prima di registrarlo come origine OAuth e collegarlo a Pages.
+- Abilita Google Drive API e configura la schermata di consenso OAuth.
+- Crea un OAuth Client ID web e autorizza `http://localhost:5173` e l'origine HTTPS di produzione.
+- L'app richiede `openid`, `email`, `profile` e `https://www.googleapis.com/auth/drive.appdata`. App e cartelle personali vengono salvate come `your-clean-dashboard.json` nell'area nascosta dell'app su Drive.
+- Il token OAuth a breve durata resta nella `sessionStorage` della scheda per ripristinare la sessione dopo un aggiornamento; il pulsante Esci lo rimuove.
+- Su Cloudflare Pages imposta build command `npm run build`, output `dist` e variabile di build `VITE_GOOGLE_CLIENT_ID`.
 
 ## Common Apps
 
-La sezione “Common Apps” è una raccolta condivisa con la configurazione dell'utente su Drive. Da Impostazioni puoi importarla o esportarla separatamente, senza sostituire app e cartelle personali. L'import accetta un array JSON oppure un oggetto con la proprietà `commonApps`:
+La raccolta è fissa e viene caricata da [`common-apps.json`](common-apps.json) nella root del progetto. Vite la copia automaticamente in `dist` durante la build. Per aggiornarla, modifica questo file e distribuisci una nuova build. L'interfaccia non consente agli utenti di importare o esportare la raccolta; le app aggiunte alla Dashboard personale possono essere modificate lì.
+
+Ogni elemento richiede `name` e un URL HTTP/HTTPS; `icon` può essere un'emoji oppure un URL a un'immagine, mentre `color` è facoltativo:
 
 ```json
 {
@@ -34,11 +36,11 @@ La sezione “Common Apps” è una raccolta condivisa con la configurazione del
     {
       "name": "Gmail",
       "url": "https://mail.google.com/",
-      "icon": "✉",
+      "icon": "https://example.com/gmail.png",
       "color": "#ea4335"
     }
   ]
 }
 ```
 
-Ogni elemento richiede `name` e un `url` HTTP/HTTPS; `icon` e `color` sono facoltativi. L'esportazione completa del launcher include anche `commonApps`.
+L'icona della scheda è il logo statico `logo.svg` e non è modificabile dalle impostazioni.
