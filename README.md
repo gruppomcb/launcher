@@ -1,6 +1,6 @@
 # Your Clean Dashboard
 
-Launcher web statico con accesso Google e dati personali salvati nel Drive dell'utente. Il deploy usa Cloudflare Pages come hosting statico: nessun database o bucket R2.
+Launcher web statico con accesso Google e dati personali salvati nell'area privata dell'app (`appDataFolder`) su Drive. I dati salvati lì non compaiono tra i normali file di Drive. Il deploy usa Cloudflare Pages come hosting statico: nessun database o bucket R2.
 
 ## Sviluppo locale
 
@@ -18,6 +18,7 @@ Launcher web statico con accesso Google e dati personali salvati nel Drive dell'
 - In Google Cloud abilita Google Drive API e configura la schermata di consenso OAuth.
 - Crea un OAuth Client ID di tipo applicazione web e autorizza l'origine locale `http://localhost:5173` e l'origine HTTPS scelta per la produzione.
 - L'app richiede `openid`, `email`, `profile` e `https://www.googleapis.com/auth/drive.appdata`. La configurazione viene conservata come `your-clean-dashboard.json` nell'area privata dell'app dell'utente (`appDataFolder`).
+- Il token di accesso OAuth, a breve durata, resta nella `sessionStorage` della scheda per ripristinare la sessione dopo un aggiornamento della pagina. Il comando Esci lo rimuove.
 - Su Cloudflare Pages imposta il comando di build `npm run build` e la directory di output `dist`. Aggiungi `VITE_GOOGLE_CLIENT_ID` nelle variabili di build del progetto Pages.
 
 Il dominio citato finora è `apps.ycd-sofware.it`; controlla che la grafia sia quella desiderata prima di registrarlo come origine OAuth e collegarlo a Pages.
