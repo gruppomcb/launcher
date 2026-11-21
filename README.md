@@ -13,8 +13,6 @@ Launcher web statico con accesso Google e dati personali salvati nel Drive dell'
 
 3. Avvia `npm run dev` e apri l'URL mostrato da Vite (di solito `http://localhost:5173`). Vite carica `.env.local` all'avvio; riavvialo se cambi il Client ID.
 
-`.env.local` è escluso da Git. Il Client ID OAuth web è pubblico; non inserire mai un client secret in questo frontend.
-
 ## Google e deploy
 
 - In Google Cloud abilita Google Drive API e configura la schermata di consenso OAuth.
