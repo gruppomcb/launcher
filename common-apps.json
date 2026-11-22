@@ -1,46 +1,310 @@
 {
-  "version": 2,
+  "version": 3,
   "commonApps": [],
   "folders": [
+    {
+      "name": "Google",
+      "icon": "G",
+      "color": "#4285f4",
+      "apps": [
         {
-          "name": "Google",
+          "name": "Google Chat",
+          "url": "https://chat.google.com/",
+          "color": "#34a853",
+          "icon": "https://www.google.com/s2/favicons?domain=chat.google.com&sz=128"
+        }
+      ],
+      "folders": [
+        {
+          "name": "Productivity",
           "icon": "✦",
           "color": "#4285f4",
           "apps": [
             {
               "name": "Gmail",
               "url": "https://mail.google.com/",
-              "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUXfUL28oZ5EfH8SYzjwtutOTCD9iQrU8rszuNXKtawg&s=10",
-              "color": "#ea4335"
+              "color": "#ea4335",
+              "icon": "https://www.google.com/s2/favicons?domain=mail.google.com&sz=128"
             },
             {
               "name": "Google Drive",
               "url": "https://drive.google.com/",
-              "icon": "data:image/png;base64,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",
-              "color": "#0f9d58"
+              "color": "#0f9d58",
+              "icon": "https://www.google.com/s2/favicons?domain=drive.google.com&sz=128"
             },
             {
               "name": "Google Calendar",
               "url": "https://calendar.google.com/",
-              "icon": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/960px-Google_Calendar_icon_%282020%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
-              "color": "#4285f4"
+              "color": "#4285f4",
+              "icon": "https://www.google.com/s2/favicons?domain=calendar.google.com&sz=128"
+            },
+            {
+              "name": "Google Docs",
+              "url": "https://docs.google.com/",
+              "color": "#4285f4",
+              "icon": "https://www.google.com/s2/favicons?domain=docs.google.com&sz=128"
+            },
+            {
+              "name": "Google Slides",
+              "url": "https://slides.google.com/",
+              "color": "#fbbc04",
+              "icon": "https://www.google.com/s2/favicons?domain=slides.google.com&sz=128"
             }
-          ],
-            "folders": [
-              {
-                "name": "Productivity",
-                "icon": "✦",
-                "color": "#4285f4",
-                "apps": [
-                  {
-                    "name": "Google Docs",
-                    "url": "https://docs.google.com/",
-                    "icon": "D",
-                    "color": "#4285f4"
-                  }
-                ]
-              }
-            ]
+          ]
         }
+      ]
+    },
+    {
+      "name": "Microsoft",
+      "icon": "M",
+      "color": "#5b5fc7",
+      "apps": [
+        {
+          "name": "Outlook",
+          "url": "https://outlook.office.com/",
+          "color": "#0078d4",
+          "icon": "https://www.google.com/s2/favicons?domain=outlook.office.com&sz=128"
+        },
+        {
+          "name": "OneDrive",
+          "url": "https://onedrive.live.com/",
+          "color": "#0364b8",
+          "icon": "https://www.google.com/s2/favicons?domain=onedrive.live.com&sz=128"
+        },
+        {
+          "name": "Microsoft Teams",
+          "url": "https://teams.microsoft.com/",
+          "color": "#6264a7",
+          "icon": "https://www.google.com/s2/favicons?domain=teams.microsoft.com&sz=128"
+        }
+      ],
+      "folders": [
+        {
+          "name": "Productivity",
+          "icon": "✦",
+          "color": "#d83b01",
+          "apps": [
+            {
+              "name": "Word",
+              "url": "https://word.cloud.microsoft/",
+              "color": "#185abd",
+              "icon": "https://www.google.com/s2/favicons?domain=word.cloud.microsoft&sz=128"
+            },
+            {
+              "name": "Excel",
+              "url": "https://excel.cloud.microsoft/",
+              "color": "#107c41",
+              "icon": "https://www.google.com/s2/favicons?domain=excel.cloud.microsoft&sz=128"
+            },
+            {
+              "name": "PowerPoint",
+              "url": "https://powerpoint.cloud.microsoft/",
+              "color": "#c43e1c",
+              "icon": "https://www.google.com/s2/favicons?domain=powerpoint.cloud.microsoft&sz=128"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sviluppatori",
+      "icon": "⌘",
+      "color": "#24292f",
+      "folders": [
+        {
+          "name": "Codice e community",
+          "icon": "{ }",
+          "color": "#24292f",
+          "apps": [
+            {
+              "name": "GitHub",
+              "url": "https://github.com/",
+              "color": "#24292f",
+              "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128"
+            },
+            {
+              "name": "GitLab",
+              "url": "https://gitlab.com/",
+              "color": "#fc6d26",
+              "icon": "https://www.google.com/s2/favicons?domain=gitlab.com&sz=128"
+            },
+            {
+              "name": "Visual Studio Code",
+              "url": "https://vscode.dev/",
+              "color": "#007acc",
+              "icon": "https://www.google.com/s2/favicons?domain=vscode.dev&sz=128"
+            },
+            {
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/",
+              "color": "#f48024",
+              "icon": "https://www.google.com/s2/favicons?domain=stackoverflow.com&sz=128"
+            },
+            {
+              "name": "MDN Web Docs",
+              "url": "https://developer.mozilla.org/",
+              "color": "#1b1b1b",
+              "icon": "https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=128"
+            }
+          ]
+        },
+        {
+          "name": "API e sviluppo",
+          "icon": "⌁",
+          "color": "#ff6c37",
+          "apps": [
+            {
+              "name": "Docker Hub",
+              "url": "https://hub.docker.com/",
+              "color": "#2496ed",
+              "icon": "https://www.google.com/s2/favicons?domain=hub.docker.com&sz=128"
+            },
+            {
+              "name": "Postman",
+              "url": "https://www.postman.com/",
+              "color": "#ff6c37",
+              "icon": "https://www.google.com/s2/favicons?domain=www.postman.com&sz=128"
+            },
+            {
+              "name": "npm",
+              "url": "https://www.npmjs.com/",
+              "color": "#cb3837",
+              "icon": "https://www.google.com/s2/favicons?domain=www.npmjs.com&sz=128"
+            },
+            {
+              "name": "Vercel",
+              "url": "https://vercel.com/",
+              "color": "#000000",
+              "icon": "https://www.google.com/s2/favicons?domain=vercel.com&sz=128"
+            },
+            {
+              "name": "Supabase",
+              "url": "https://supabase.com/",
+              "color": "#3ecf8e",
+              "icon": "https://www.google.com/s2/favicons?domain=supabase.com&sz=128"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Streaming",
+      "icon": "◉",
+      "color": "#9146ff",
+      "apps": [
+        {
+          "name": "Twitch",
+          "url": "https://www.twitch.tv/",
+          "color": "#9146ff",
+          "icon": "https://www.google.com/s2/favicons?domain=www.twitch.tv&sz=128"
+        },
+        {
+          "name": "YouTube",
+          "url": "https://www.youtube.com/",
+          "color": "#ff0033",
+          "icon": "https://www.google.com/s2/favicons?domain=www.youtube.com&sz=128"
+        },
+        {
+          "name": "YouTube Studio",
+          "url": "https://studio.youtube.com/",
+          "color": "#ff0033",
+          "icon": "https://www.google.com/s2/favicons?domain=studio.youtube.com&sz=128"
+        },
+        {
+          "name": "OBS Studio",
+          "url": "https://obsproject.com/",
+          "color": "#302e2e",
+          "icon": "https://www.google.com/s2/favicons?domain=obsproject.com&sz=128"
+        },
+        {
+          "name": "Streamlabs",
+          "url": "https://streamlabs.com/",
+          "color": "#80f5d2",
+          "icon": "https://www.google.com/s2/favicons?domain=streamlabs.com&sz=128"
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "icon": "♡",
+      "color": "#e05a70",
+      "folders": [
+        {
+          "name": "Comunicazione",
+          "icon": "✉",
+          "color": "#25d366",
+          "apps": [
+            {
+              "name": "WhatsApp",
+              "url": "https://web.whatsapp.com/",
+              "color": "#25d366",
+              "icon": "https://www.google.com/s2/favicons?domain=web.whatsapp.com&sz=128"
+            },
+            {
+              "name": "Telegram",
+              "url": "https://web.telegram.org/",
+              "color": "#26a5e4",
+              "icon": "https://www.google.com/s2/favicons?domain=web.telegram.org&sz=128"
+            }
+          ]
+        },
+        {
+          "name": "Media",
+          "icon": "♫",
+          "color": "#e50914",
+          "apps": [
+            {
+              "name": "YouTube",
+              "url": "https://www.youtube.com/",
+              "color": "#ff0033",
+              "icon": "https://www.google.com/s2/favicons?domain=www.youtube.com&sz=128"
+            },
+            {
+              "name": "Spotify",
+              "url": "https://open.spotify.com/",
+              "color": "#1db954",
+              "icon": "https://www.google.com/s2/favicons?domain=open.spotify.com&sz=128"
+            },
+            {
+              "name": "Netflix",
+              "url": "https://www.netflix.com/",
+              "color": "#e50914",
+              "icon": "https://www.google.com/s2/favicons?domain=www.netflix.com&sz=128"
+            }
+          ]
+        },
+        {
+          "name": "Utilità e shopping",
+          "icon": "⌖",
+          "color": "#4285f4",
+          "apps": [
+            {
+              "name": "Google Maps",
+              "url": "https://maps.google.com/",
+              "color": "#4285f4",
+              "icon": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=128"
+            },
+            {
+              "name": "Google Translate",
+              "url": "https://translate.google.com/",
+              "color": "#4285f4",
+              "icon": "https://www.google.com/s2/favicons?domain=translate.google.com&sz=128"
+            },
+            {
+              "name": "Google Photos",
+              "url": "https://photos.google.com/",
+              "color": "#4285f4",
+              "icon": "https://www.google.com/s2/favicons?domain=photos.google.com&sz=128"
+            },
+            {
+              "name": "Amazon Italia",
+              "url": "https://www.amazon.it/",
+              "color": "#ff9900",
+              "icon": "https://www.google.com/s2/favicons?domain=www.amazon.it&sz=128"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

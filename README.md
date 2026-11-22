@@ -25,7 +25,7 @@ Launcher web statico con accesso Google e dati personali salvati nell'area priva
 
 ## Common Apps
 
-La raccolta predefinita viene caricata da [`common-apps.json`](common-apps.json) nella root del progetto. Vite la copia automaticamente in `dist`. Le app possono essere organizzate in cartelle e sottocartelle annidando `folders`; ogni cartella può avere `name`, `icon`, `color`, `apps` e altre `folders`. Le app al livello principale restano in `commonApps`, così il formato precedente continua a funzionare. Le cartelle predefinite sono definite dal progetto; da Common Apps si possono esplorare e aggiungere le singole app alla dashboard personale.
+La raccolta predefinita viene caricata da [`common-apps.json`](common-apps.json) nella root del progetto. Vite la copia automaticamente in `dist`. Le app possono essere organizzate in cartelle e sottocartelle annidando `folders`; ogni cartella può avere `name`, `icon`, `color`, `apps` e altre `folders`. Le app al livello principale restano in `commonApps`, così il formato precedente continua a funzionare. Le cartelle predefinite sono definite dal progetto e appaiono come albero accanto al contenuto selezionato; lo stesso schema ad albero è disponibile nella dashboard. Aggiungendo una Common App alla dashboard, viene ricreato anche il percorso di cartelle corrispondente. L’utente può poi spostare app e cartelle secondo le proprie preferenze.
 
 Ogni app richiede `name` e un URL HTTP/HTTPS. `icon` può essere un'emoji o un URL a un'immagine; `color` è facoltativo. Esempio:
 
