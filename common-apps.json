@@ -2,13 +2,8 @@
   "version": 2,
   "commonApps": [],
   "folders": [
-    {
-      "name": "Google",
-      "icon": "G",
-      "color": "#4285f4",
-      "folders": [
         {
-          "name": "Produttività",
+          "name": "Google",
           "icon": "✦",
           "color": "#4285f4",
           "apps": [
@@ -21,24 +16,31 @@
             {
               "name": "Google Drive",
               "url": "https://drive.google.com/",
-              "icon": "D",
+              "icon": "data:image/png;base64,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",
               "color": "#0f9d58"
             },
             {
               "name": "Google Calendar",
               "url": "https://calendar.google.com/",
-              "icon": "C",
-              "color": "#4285f4"
-            },
-            {
-              "name": "Google Docs",
-              "url": "https://docs.google.com/",
-              "icon": "D",
+              "icon": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/960px-Google_Calendar_icon_%282020%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
               "color": "#4285f4"
             }
-          ]
+          ],
+            "folders": [
+              {
+                "name": "Productivity",
+                "icon": "✦",
+                "color": "#4285f4",
+                "apps": [
+                  {
+                    "name": "Google Docs",
+                    "url": "https://docs.google.com/",
+                    "icon": "D",
+                    "color": "#4285f4"
+                  }
+                ]
+              }
+            ]
         }
-      ]
-    }
   ]
 }
