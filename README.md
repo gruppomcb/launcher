@@ -60,3 +60,9 @@ Ogni app richiede `name` e un URL HTTP/HTTPS. `icon` può essere un'emoji o un U
 Il progetto è stato realizzato con un approccio di **vibe coding**: codice generato e iterato con assistenti AI, poi integrato nel progetto. L'app non usa un database gestito dagli sviluppatori e non invia i dati della dashboard a un loro server. Quando l'utente accede, le app, le cartelle e i conteggi di aperture sono salvati direttamente nell'area privata dell'app (`appDataFolder`) del suo Google Drive. L'app registra quindi i conteggi d'uso richiesti, ma questi restano nell'account Google del cliente. Il token OAuth è conservato nella `sessionStorage` della scheda; il tema è conservato nella memoria locale del browser.
 
 L'interfaccia mostra un'informativa cookie e, quando viene confermata, salva il cookie tecnico `ycd_cookie_notice` per un anno. Non vengono usati cookie analitici o pubblicitari dall'app. L'accesso e le chiamate a Drive passano tramite i servizi Google e sono soggetti alle tecnologie e alle informative di Google.
+
+## Versione e release note
+
+La versione dell'app è definita in `package.json`. La build pubblica il valore anche all'endpoint testuale `/version`; la pagina `release/index.html` è raggiungibile come `/release` e riepiloga le funzionalità della versione corrente. In alto a destra, il link della versione apre le note in una nuova scheda.
+
+Le banner `PUBLIC PREVIEW` appare sui domini `*.pages.dev`. Alla prima visita del browser viene mostrato un avviso di anteprima, ricordato con una preferenza locale. Il badge apre le release note o la versione stabile. Finché non è scelto un dominio stabile, il relativo collegamento resta nascosto. Quando il dominio sarà deciso, configura `VITE_STABLE_APP_URL` nelle variabili Cloudflare Pages.
