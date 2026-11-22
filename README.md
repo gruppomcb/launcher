@@ -25,26 +25,36 @@ Launcher web statico con accesso Google e dati personali salvati nell'area priva
 
 ## Common Apps
 
-La raccolta è fissa e viene caricata da [`common-apps.json`](common-apps.json) nella root del progetto. Vite la copia automaticamente in `dist` durante la build. Per aggiornarla, modifica questo file e distribuisci una nuova build. L'interfaccia non consente agli utenti di importare o esportare la raccolta; le app aggiunte alla Dashboard personale possono essere modificate lì.
+La raccolta predefinita viene caricata da [`common-apps.json`](common-apps.json) nella root del progetto. Vite la copia automaticamente in `dist`. Le app possono essere organizzate in cartelle e sottocartelle annidando `folders`; ogni cartella può avere `name`, `icon`, `color`, `apps` e altre `folders`. Le app al livello principale restano in `commonApps`, così il formato precedente continua a funzionare. Le cartelle predefinite sono definite dal progetto; da Common Apps si possono esplorare e aggiungere le singole app alla dashboard personale.
 
-Ogni elemento richiede `name` e un URL HTTP/HTTPS; `icon` può essere un'emoji oppure un URL a un'immagine, mentre `color` è facoltativo:
+Ogni app richiede `name` e un URL HTTP/HTTPS. `icon` può essere un'emoji o un URL a un'immagine; `color` è facoltativo. Esempio:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "commonApps": [
+    { "name": "Notion", "url": "https://notion.so/", "icon": "N", "color": "#111827" }
+  ],
+  "folders": [
     {
-      "name": "Gmail",
-      "url": "https://mail.google.com/",
-      "icon": "https://example.com/gmail.png",
-      "color": "#ea4335"
+      "name": "Lavoro",
+      "icon": "💼",
+      "color": "#176b5b",
+      "apps": [
+        { "name": "Slack", "url": "https://slack.com/", "icon": "S" }
+      ],
+      "folders": [
+        {
+          "name": "Documenti",
+          "apps": [
+            { "name": "Google Docs", "url": "https://docs.google.com/", "icon": "D" }
+          ]
+        }
+      ]
     }
   ]
 }
 ```
-
-L'icona della scheda è il logo statico `logo.svg` e non è modificabile dalle impostazioni.
-
 ## Privacy, cookie e sviluppo
 
 Il progetto è stato realizzato con un approccio di **vibe coding**: codice generato e iterato con assistenti AI, poi integrato nel progetto. L'app non usa un database gestito dagli sviluppatori e non invia i dati della dashboard a un loro server. Quando l'utente accede, le app, le cartelle e i conteggi di aperture sono salvati direttamente nell'area privata dell'app (`appDataFolder`) del suo Google Drive. L'app registra quindi i conteggi d'uso richiesti, ma questi restano nell'account Google del cliente. Il token OAuth è conservato nella `sessionStorage` della scheda; il tema è conservato nella memoria locale del browser.

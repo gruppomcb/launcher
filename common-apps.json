@@ -1,29 +1,44 @@
 {
-  "version": 1,
-  "commonApps": [
+  "version": 2,
+  "commonApps": [],
+  "folders": [
     {
-      "name": "Gmail",
-      "url": "https://mail.google.com/",
-      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUXfUL28oZ5EfH8SYzjwtutOTCD9iQrU8rszuNXKtawg&s=10",
-      "color": "#ea4335"
-    },
-    {
-      "name": "Google Drive",
-      "url": "https://drive.google.com/",
-      "icon": "D",
-      "color": "#0f9d58"
-    },
-    {
-      "name": "Google Calendar",
-      "url": "https://calendar.google.com/",
-      "icon": "C",
-      "color": "#4285f4"
-    },
-    {
-      "name": "Google Docs",
-      "url": "https://docs.google.com/",
-      "icon": "D",
-      "color": "#4285f4"
+      "name": "Google",
+      "icon": "G",
+      "color": "#4285f4",
+      "folders": [
+        {
+          "name": "Produttività",
+          "icon": "✦",
+          "color": "#4285f4",
+          "apps": [
+            {
+              "name": "Gmail",
+              "url": "https://mail.google.com/",
+              "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUXfUL28oZ5EfH8SYzjwtutOTCD9iQrU8rszuNXKtawg&s=10",
+              "color": "#ea4335"
+            },
+            {
+              "name": "Google Drive",
+              "url": "https://drive.google.com/",
+              "icon": "D",
+              "color": "#0f9d58"
+            },
+            {
+              "name": "Google Calendar",
+              "url": "https://calendar.google.com/",
+              "icon": "C",
+              "color": "#4285f4"
+            },
+            {
+              "name": "Google Docs",
+              "url": "https://docs.google.com/",
+              "icon": "D",
+              "color": "#4285f4"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
