@@ -1,6 +1,8 @@
-# Your Clean Dashboard
+# LAYO CLEAN
 
-Launcher web statico con accesso Google e dati personali salvati nell'area privata dell'app (`appDataFolder`) su Drive. Il deploy usa Cloudflare Pages come hosting statico: nessun database o bucket R2.
+Launch Your Clean Dashboard
+
+Launcher web statico con accesso Google e dati personali salvati nell'area privata dell'app (`appDataFolder`) su Drive. Il deploy usa Cloudflare Pages come hosting statico all’indirizzo stabile [apps.layoclean.it](https://apps.layoclean.it/): nessun database o bucket R2.
 
 ## Sviluppo locale
 
@@ -65,4 +67,4 @@ L'interfaccia mostra un'informativa cookie e, quando viene confermata, salva il 
 
 La versione dell'app è definita in `package.json`. La build pubblica il valore anche all'endpoint testuale `/version`; la pagina `release/index.html` è raggiungibile come `/release` e riepiloga le funzionalità della versione corrente. In alto a destra, il link della versione apre le note in una nuova scheda.
 
-Le banner `PUBLIC PREVIEW` appare sui domini `*.pages.dev`. Alla prima visita del browser viene mostrato un avviso di anteprima, ricordato con una preferenza locale. Il badge apre le release note o la versione stabile. Finché non è scelto un dominio stabile, il relativo collegamento resta nascosto. Quando il dominio sarà deciso, configura `VITE_STABLE_APP_URL` nelle variabili Cloudflare Pages.
+Il badge `PUBLIC PREVIEW` appare sui domini `*.pages.dev`. Alla prima visita del browser viene mostrato un avviso di anteprima, ricordato con una preferenza locale. Cliccando il badge si possono aprire le release note o la versione stabile, disponibile su [apps.layoclean.it](https://apps.layoclean.it/). Il dominio stabile può essere sovrascritto con `VITE_STABLE_APP_URL` nelle variabili Cloudflare Pages.

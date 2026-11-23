@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Your Clean Dashboard</title>
+<title>LAYO CLEAN — Launch Your Clean Dashboard</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{--bg:#f5f6f8;--panel:rgba(255,255,255,.96);--card:#fff;--text:#18202a;--muted:#667085;--border:#e0e4e9;--accent:#0f6cbd;--danger:#c42b1c;--shadow:0 8px 24px rgba(0,0,0,.07);--radius:16px}
@@ -16,9 +16,9 @@
 .folder-card .edit-card{z-index:1}.folder-card:hover .edit-card{opacity:1}.folder-icon img{position:relative;width:100%;height:100%;object-fit:cover;border-radius:inherit}\n
 .folder-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:0 0 16px;color:var(--muted);font-size:13px}.folder-breadcrumb button{border:0;background:transparent;color:var(--accent);padding:4px 2px}.folder-breadcrumb button:hover{text-decoration:underline}.folder-breadcrumb .separator{color:var(--muted)}\n.dashboard-section{margin:8px 0 28px}.dashboard-section h2{font-size:18px;margin:0 0 14px}.dashboard-section .app-card{min-height:150px}.account-status{font-size:12px;color:var(--muted)}.auth-gate{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:var(--bg);backdrop-filter:blur(8px)}body.authenticated .auth-gate{display:none}body:not(.authenticated) .app-layout{visibility:hidden}.auth-card{width:min(420px,calc(100% - 32px));padding:32px;border:1px solid var(--border);border-radius:18px;background:var(--card);box-shadow:var(--shadow);text-align:center}.auth-card h2{margin-top:0}.auth-card p{color:var(--muted)}</style>
 <link rel="icon" type="image/svg+xml" href="./logo.svg"><link rel="stylesheet" href="./style.css"></head>
-<body class="auth-pending"><div id="authGate" class="auth-gate"><div class="auth-card"><img src="./logo.svg" alt=""><h2>Your Clean Dashboard</h2><p>Accedi con Google per caricare e salvare i tuoi dati.</p><button id="googleLogin" class="btn primary" type="button">Accedi con Google</button><div id="authMessage" class="note"></div></div></div><div class="app-layout">
+<body class="auth-pending"><div id="authGate" class="auth-gate"><div class="auth-card"><img src="./logo.svg" alt=""><h2>LAYO CLEAN</h2><p>Launch Your Clean Dashboard</p><p>Accedi con Google per caricare e salvare i tuoi dati.</p><button id="googleLogin" class="btn primary" type="button">Accedi con Google</button><div id="authMessage" class="note"></div></div></div><div class="app-layout">
   <aside class="sidebar">
-    <a class="brand" href="#dashboard"><img src="./logo.svg" alt=""><span class="brand-name">Your Clean<small>Dashboard</small></span></a>
+    <a class="brand" href="#dashboard"><img src="./logo.svg" alt=""><span class="brand-name">LAYO CLEAN<small>Launch Your Clean Dashboard</small></span></a>
     <nav class="sidebar-nav" aria-label="Navigazione principale">
       <button class="nav-link active" id="dashboardNav" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg><span>Dashboard</span></button>
       <div id="dashboardTree" class="folder-tree" aria-label="Alberatura Dashboard"></div>
@@ -54,7 +54,7 @@
 <script type="module">(()=>{"use strict";
 let GOOGLE_CLIENT_ID="";try{GOOGLE_CLIENT_ID=import.meta.env.VITE_GOOGLE_CLIENT_ID||""}catch{}
 const DRIVE_SCOPE="https://www.googleapis.com/auth/drive.appdata",DRIVE_FILE_NAME="your-clean-dashboard.json";
-const IS_PUBLIC_PREVIEW=location.hostname.toLocaleLowerCase().endsWith(".pages.dev"),STABLE_APP_URL=import.meta.env.VITE_STABLE_APP_URL||"";
+const IS_PUBLIC_PREVIEW=location.hostname.toLocaleLowerCase().endsWith(".pages.dev"),STABLE_APP_URL=import.meta.env.VITE_STABLE_APP_URL||"https://apps.layoclean.it/";
 let googleToken="",driveFileId="",saveQueue=Promise.resolve(),commonApps=[],commonFolders=[],openedCommonFolder=null,commonAppsError="";
 function setAuthMessage(text){document.getElementById("authMessage").textContent=text}
 const APP_SESSION_KEY="ycd.google.session.v1";
@@ -287,7 +287,7 @@ async function init(){
  $("folderClose").onclick=()=>folderDialog.close();folderDialog.addEventListener("close",()=>{openedFolder=null});
  folderDialog.addEventListener("click",ev=>{if(ev.target===folderDialog)folderDialog.close()});
  $("settingsBtn").onclick=()=>settingsDialog.showModal();$("settingsClose").onclick=()=>settingsDialog.close();$("themeSelect").value=localStorage.getItem(THEME_KEY)||"system";$("themeSelect").onchange=ev=>theme(ev.target.value);
- $("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify({version:4,apps,folders},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="your-clean-dashboard.json";a.click();URL.revokeObjectURL(url)};
+ $("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify({version:4,apps,folders},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="layo-clean.json";a.click();URL.revokeObjectURL(url)};
  $("importBtn").onclick=()=>$("importFile").click();$("importFile").onchange=async ev=>{try{importData(JSON.parse(await ev.target.files[0].text()))}catch{alert("JSON non valido")}ev.target.value=""};
  $("resetBtn").onclick=()=>{if(confirm("Ripristinare la configurazione iniziale?")){apps=[];folders=[];save();render()}};theme(localStorage.getItem(THEME_KEY)||"system");
  const cookieNotice=$("cookieNotice"),privacyDialog=$("privacyDialog"),hasCookie=document.cookie.split(";").some(value=>value.trim().startsWith("ycd_cookie_notice="));cookieNotice.hidden=hasCookie;$("cookieAcceptBtn").addEventListener("click",()=>{document.cookie=`ycd_cookie_notice=accepted; Max-Age=31536000; Path=/; SameSite=Lax${location.protocol==="https:"?"; Secure":""}`;cookieNotice.hidden=true});$("cookieDetailsBtn").addEventListener("click",()=>privacyDialog.showModal());$("privacyClose").addEventListener("click",()=>privacyDialog.close());
