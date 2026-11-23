@@ -12,24 +12,23 @@
   <main class="release-shell">
     <header class="release-header">
       <a class="release-brand" href="/" aria-label="Torna a LAYO CLEAN"><img src="../logo.svg" alt=""><span>LAYO CLEAN<small>Launch Your Clean Dashboard</small></span></a>
-      <a class="release-version" href="/version">Versione 1.0.0</a>
+      <div class="release-header-actions"><a class="release-version" href="/version">Versione 1.1.0</a><a id="previewReleaseLink" class="release-preview-cta" href="https://develop.home-hn5.pages.dev/" hidden>Esplora le novità in anteprima <span aria-hidden="true">↗</span></a></div>
     </header>
     <section class="release-hero">
-      <p class="page-eyebrow">Prima versione per la produzione</p>
-      <h1>LAYO CLEAN <span>1.0.0</span></h1>
-      <p>Un launcher personale per raccogliere in un unico spazio le app che usi ogni giorno, organizzate come preferisci.</p>
+      <p class="page-eyebrow">Cronologia delle versioni</p>
+      <h1>LAYO CLEAN <span>Release note</span></h1>
+      <p>Le novità di ogni versione pubblicata. La versione stabile corrente è la 1.1.0.</p>
     </section>
-    <section class="release-section">
-      <h2>Dashboard personale</h2>
+    <section class="release-section release-version-group" aria-labelledby="release-1-1-0"><div class="release-version-heading"><h2 id="release-1-1-0">Versione 1.1.0</h2><span>Corrente</span></div><p class="release-date">Novità: modalità locale e sincronizzazione facoltativa</p><ul><li>La dashboard si apre senza autenticazione obbligatoria.</li><li>App, cartelle e conteggi d’uso vengono salvati nel browser e restano disponibili anche senza connessione a Google.</li><li>Il pulsante «Sincronizza con Google» attiva una copia su Drive; le modifiche locali non sincronizzate non sono disponibili sugli altri dispositivi.</li><li>La disconnessione da Drive non elimina i dati salvati nel browser. È possibile riattivare la sincronizzazione in seguito.</li><li>Quando possibile, l’app prova a ripristinare la sessione Google; il token OAuth rimane temporaneo e limitato alla sessione del browser.</li></ul></section>
+    <section class="release-section release-version-group" aria-labelledby="release-1-0-0"><div class="release-version-heading"><h2 id="release-1-0-0">Versione 1.0.0</h2><span>Prima release di produzione</span></div><p class="release-date">La prima versione pubblica di LAYO CLEAN</p>
+    <h3 class="release-subheading">Dashboard e organizzazione</h3>
       <ul>
         <li>Aggiungi, modifica, duplica ed elimina collegamenti web; personalizza nome, URL, icona, colore e apertura in una nuova scheda.</li>
         <li>Organizza le app in cartelle e sottocartelle. Sfoglia l’alberatura dal menu e apri il contenuto della cartella nell’area principale.</li>
         <li>Riordina app e cartelle trascinandole. Puoi spostare un’app in una cartella selezionandola e trascinandola nell’area dei contenuti.</li>
         <li>Cerca app e cartelle dalla dashboard e dalle raccolte predefinite.</li>
       </ul>
-    </section>
-    <section class="release-section">
-      <h2>Common Apps</h2>
+    <h3 class="release-subheading">Common Apps</h3>
       <p>Una raccolta predefinita, organizzata in cartelle modificabili dal progetto tramite <code>common-apps.json</code>:</p>
       <ul class="release-tags">
         <li>Google: Chat, Gmail, Drive, Calendar, Docs e Slides.</li>
@@ -39,22 +38,43 @@
         <li>Consumer: WhatsApp, Telegram, YouTube, Spotify, Netflix, Maps, Translate, Photos e Amazon Italia.</li>
       </ul>
       <p>Apri una Common App direttamente oppure aggiungila alla dashboard: viene ricreato anche il percorso di cartelle corrispondente, che potrai cambiare in seguito.</p>
-    </section>
-    <section class="release-section">
-      <h2>Statistiche e personalizzazione</h2>
+    <h3 class="release-subheading">Statistiche e personalizzazione</h3>
       <ul>
         <li>La sezione Statistiche di utilizzo mostra il numero di aperture per ogni app della dashboard.</li>
         <li>Alterna l’ordine scelto manualmente all’ordinamento per app più utilizzate.</li>
         <li>Scegli il tema automatico, chiaro o scuro.</li>
         <li>Importa ed esporta la configurazione in JSON, oppure ripristina la dashboard.</li>
       </ul>
+    <h3 class="release-subheading">Accesso e dati</h3>
+      <p>La prima release richiedeva l’accesso Google per caricare e salvare app, cartelle e conteggi nell’area privata dell’app su Drive. Includeva il tema automatico, chiaro e scuro, la gestione JSON della configurazione, il cookie tecnico e l’avviso PUBLIC PREVIEW sui domini di anteprima.</p>
+      <p>L’app non invia i dati della dashboard a un server gestito dagli sviluppatori. Le richieste di accesso e salvataggio Drive sono inviate direttamente a Google.</p>
     </section>
-    <section class="release-section privacy-section">
-      <h2>Accesso e dati</h2>
-      <p>Accedi con Google per caricare e salvare app, cartelle e conteggi d’uso nell’area privata dell’app su Google Drive. Il token di accesso resta nella sessione del browser; la preferenza del tema resta nella memoria locale. Il sito usa un cookie tecnico per ricordare la presa visione dell’informativa, senza cookie analitici o pubblicitari dell’app.</p>
-      <p>L’app non invia i dati della dashboard a un server gestito dagli sviluppatori. Le richieste di accesso e salvataggio avvengono direttamente con Google.</p>
-    </section>
-    <footer class="release-footer"><div><a class="btn primary" href="/">Torna alla dashboard</a><nav class="release-legal"><a href="/privacy">Privacy</a><a href="/terms">Termini di utilizzo</a></nav></div><span>Versione 1.0.0</span></footer>
+    <footer class="release-footer"><div><a class="btn primary" href="/">Torna alla dashboard</a><nav class="release-legal"><a href="/privacy">Privacy</a><a href="/terms">Termini di utilizzo</a></nav></div><span>Versione 1.1.0</span></footer>
   </main>
+  <script type="module">
+    const previewVersionUrl = "https://develop.home-hn5.pages.dev/version";
+    const stableVersionUrl = "https://apps.layoclean.it/version";
+    const previewLink = document.getElementById("previewReleaseLink");
+
+    (async () => {
+      try {
+        const [previewResponse, stableResponse] = await Promise.all([
+          fetch(previewVersionUrl, { cache: "no-store" }),
+          fetch(stableVersionUrl, { cache: "no-store" }),
+        ]);
+        if (!previewResponse.ok || !stableResponse.ok) throw new Error("Versione non disponibile");
+
+        const [previewVersion, stableVersion] = await Promise.all([
+          previewResponse.text(),
+          stableResponse.text(),
+        ]);
+        if (previewVersion.trim() && stableVersion.trim() && previewVersion.trim() !== stableVersion.trim()) {
+          previewLink.hidden = false;
+        }
+      } catch (error) {
+        console.warn("Confronto versioni preview/stabile non disponibile", error);
+      }
+    })();
+  </script>
 </body>
 </html>
