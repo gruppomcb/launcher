@@ -56,23 +56,25 @@
     const stableVersionUrl = "https://apps.layoclean.it/version";
     const previewLink = document.getElementById("previewReleaseLink");
 
-    try {
-      const [previewResponse, stableResponse] = await Promise.all([
-        fetch(previewVersionUrl, { cache: "no-store" }),
-        fetch(stableVersionUrl, { cache: "no-store" }),
-      ]);
-      if (!previewResponse.ok || !stableResponse.ok) throw new Error("Versione non disponibile");
+    (async () => {
+      try {
+        const [previewResponse, stableResponse] = await Promise.all([
+          fetch(previewVersionUrl, { cache: "no-store" }),
+          fetch(stableVersionUrl, { cache: "no-store" }),
+        ]);
+        if (!previewResponse.ok || !stableResponse.ok) throw new Error("Versione non disponibile");
 
-      const [previewVersion, stableVersion] = await Promise.all([
-        previewResponse.text(),
-        stableResponse.text(),
-      ]);
-      if (previewVersion.trim() && stableVersion.trim() && previewVersion.trim() !== stableVersion.trim()) {
-        previewLink.hidden = false;
+        const [previewVersion, stableVersion] = await Promise.all([
+          previewResponse.text(),
+          stableResponse.text(),
+        ]);
+        if (previewVersion.trim() && stableVersion.trim() && previewVersion.trim() !== stableVersion.trim()) {
+          previewLink.hidden = false;
+        }
+      } catch (error) {
+        console.warn("Confronto versioni preview/stabile non disponibile", error);
       }
-    } catch (error) {
-      console.warn("Confronto versioni preview/stabile non disponibile", error);
-    }
+    })();
   </script>
 </body>
 </html>
