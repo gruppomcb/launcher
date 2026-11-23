@@ -68,3 +68,5 @@ L'interfaccia mostra un'informativa cookie e, quando viene confermata, salva il 
 La versione dell'app è definita in `package.json`. La build pubblica il valore anche all'endpoint testuale `/version`; la pagina `release/index.html` è raggiungibile come `/release` e riepiloga le funzionalità della versione corrente. In alto a destra, il link della versione apre le note in una nuova scheda.
 
 Il badge `PUBLIC PREVIEW` appare sui domini `*.pages.dev`. Alla prima visita del browser viene mostrato un avviso di anteprima, ricordato con una preferenza locale. Cliccando il badge si possono aprire le release note o la versione stabile, disponibile su [apps.layoclean.it](https://apps.layoclean.it/). Il dominio stabile può essere sovrascritto con `VITE_STABLE_APP_URL` nelle variabili Cloudflare Pages.
+
+Le informative pubbliche sono disponibili su `/privacy` e `/terms` e sono collegate dalle impostazioni e dalle release note. Prima della pubblicazione definitiva occorre completare nelle informative il nome e cognome e l'indirizzo postale del titolare, oltre a confermare basi giuridiche e tempi di conservazione applicabili.

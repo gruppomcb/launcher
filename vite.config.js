@@ -31,6 +31,8 @@ export default defineConfig({
       input: {
         main: resolve(projectRoot, "index.html"),
         release: resolve(projectRoot, "release", "index.html"),
+        privacy: resolve(projectRoot, "privacy", "index.html"),
+        terms: resolve(projectRoot, "terms", "index.html"),
       },
     },
   },
