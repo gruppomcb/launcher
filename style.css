@@ -357,6 +357,11 @@ body { background: radial-gradient(ellipse at 84% 0%, rgba(121,201,164,.14), tra
 .sidebar-nav .tree-toggle { width: 31px; min-height: 32px; border: 1px solid transparent; border-radius: 9px; color: var(--muted); font-size: 16px; }
 .sidebar-nav .tree-toggle:hover { border-color: var(--border); background: var(--panel); color: var(--accent); }
 .sidebar-nav .tree-toggle:focus-visible,.sidebar-nav .tree-node-toggle:focus-visible,.sidebar-nav .tree-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.sidebar-nav .tree-row { flex-direction: row-reverse; gap: 0; border-radius: 9px; transition: background .14s ease; }
+.sidebar-nav .tree-row:hover,.sidebar-nav .tree-row.active { background: var(--accent-soft); }
+.sidebar-nav .tree-row .tree-item,.sidebar-nav .tree-row .tree-item:hover,.sidebar-nav .tree-row .tree-item.active { background: transparent; }
+.sidebar-nav .tree-row .tree-item.active { color: var(--accent); font-weight: 700; }
+.sidebar-nav .tree-node-toggle { margin-inline-start: 3px; }
 @media(max-width:760px) {
   .sidebar-nav .tree-node-toggle,.sidebar-nav .tree-node-spacer { height: 30px; }
   .sidebar-nav .tree-row .tree-item { min-height: 34px; }
