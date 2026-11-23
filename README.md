@@ -2,7 +2,7 @@
 
 Launch Your Clean Dashboard
 
-Launcher web statico con accesso Google e dati personali salvati nell'area privata dell'app (`appDataFolder`) su Drive. Il deploy usa Cloudflare Pages come hosting statico all’indirizzo stabile [apps.layoclean.it](https://apps.layoclean.it/): nessun database o bucket R2.
+Launcher web statico con uso locale facoltativo e sincronizzazione Google Drive opzionale. Il deploy usa Cloudflare Pages come hosting statico all’indirizzo stabile [apps.layoclean.it](https://apps.layoclean.it/): nessun database o bucket R2.
 
 ## Sviluppo locale
 
@@ -21,8 +21,9 @@ Launcher web statico con accesso Google e dati personali salvati nell'area priva
 
 - Abilita Google Drive API e configura la schermata di consenso OAuth.
 - Crea un OAuth Client ID web e autorizza `http://localhost:5173` e l'origine HTTPS di produzione.
-- L'app richiede `openid`, `email`, `profile` e `https://www.googleapis.com/auth/drive.appdata`. App e cartelle personali vengono salvate come `your-clean-dashboard.json` nell'area nascosta dell'app su Drive.
-- Il token OAuth a breve durata resta nella `sessionStorage` della scheda per ripristinare la sessione dopo un aggiornamento; il pulsante Esci lo rimuove.
+- La dashboard funziona senza autenticazione e salva app, cartelle e conteggi nelle memorie locali del browser. Le configurazioni locali non sono condivise con altri dispositivi; esportazione/importazione JSON resta disponibile.
+- Il pulsante «Sincronizza con Google» è facoltativo e richiede gli scope `openid`, `email`, `profile` e `https://www.googleapis.com/auth/drive.appdata`. App e cartelle vengono salvate come `your-clean-dashboard.json` nell'area app privata su Drive.
+- Il token OAuth a breve durata resta nella `sessionStorage` della scheda. L'app prova a ripristinare la sincronizzazione silenziosamente quando il browser e Google lo consentono; in caso contrario la dashboard locale continua a funzionare e l'utente può riconnettere Google manualmente.
 - Su Cloudflare Pages imposta build command `npm run build`, output `dist` e variabile di build `VITE_GOOGLE_CLIENT_ID`.
 
 ## Common Apps
@@ -59,9 +60,9 @@ Ogni app richiede `name` e un URL HTTP/HTTPS. `icon` può essere un'emoji o un U
 ```
 ## Privacy, cookie e sviluppo
 
-Il progetto è stato realizzato con un approccio di **vibe coding**: codice generato e iterato con assistenti AI, poi integrato nel progetto. L'app non usa un database gestito dagli sviluppatori e non invia i dati della dashboard a un loro server. Quando l'utente accede, le app, le cartelle e i conteggi di aperture sono salvati direttamente nell'area privata dell'app (`appDataFolder`) del suo Google Drive. L'app registra quindi i conteggi d'uso richiesti, ma questi restano nell'account Google del cliente. Il token OAuth è conservato nella `sessionStorage` della scheda; il tema è conservato nella memoria locale del browser.
+Il progetto è stato realizzato con un approccio di **vibe coding**: codice generato e iterato con assistenti AI, poi integrato nel progetto. L'app non usa un database gestito dagli sviluppatori e non invia i dati della dashboard a un loro server. Senza sincronizzazione, app, cartelle e conteggi di aperture restano nel browser; con la sincronizzazione attiva, una copia viene salvata nell'area privata dell'app (`appDataFolder`) su Google Drive. Il token OAuth è conservato nella `sessionStorage` della scheda; il tema è conservato nella memoria locale del browser.
 
-L'interfaccia mostra un'informativa cookie e, quando viene confermata, salva il cookie tecnico `ycd_cookie_notice` per un anno. Non vengono usati cookie analitici o pubblicitari dall'app. L'accesso e le chiamate a Drive passano tramite i servizi Google e sono soggetti alle tecnologie e alle informative di Google.
+L'interfaccia mostra un'informativa cookie e, quando viene confermata, salva il cookie tecnico `ycd_cookie_notice` per un anno. Non vengono usati cookie analitici o pubblicitari dall'app. Le funzioni Google sono facoltative e, quando attivate, le chiamate a Drive passano tramite i servizi Google e sono soggette alle tecnologie e alle informative di Google.
 
 ## Versione e release note
 
